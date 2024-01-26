@@ -1,5 +1,12 @@
 # Flask Real Time Log Viewer
 
+
+## Real time log view
+![Screen Shot](images/screeshot.png)
+
+Display logs in real time through a browser with flask.
+
+
 ## Background
 Looking at a few different projects and writes up showing how to stream logs to a browser and found
 they relied on WebSockets (wss), and Redis. Which complicates simple projects and increases expense. 
@@ -103,3 +110,11 @@ What to look for if git cloning
   * templates/viewer.html - a htmx log viewer 
   * static/js/ansi_html.js - basic ansi colors to html converter
 
+
+## Running with gunicorn
+Using gevent with gunicorns reduces the amount of connect closes you receive and is recommended for production level hosting.
+
+
+```
+gunicorn -k gevent -w 4 -b 0.0.0.0:3001 --access-logfile - --error-logfile -  app:app 
+```
