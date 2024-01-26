@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "flask-log-viewer"
 version = "0.0.0"
-description = ""
+description = "Real time log viewer for flask applications"
 authors = ["patrick o'leary <pjaol@pjaol.com>"]
 readme = "README.md"
 homepage = "https://github.com/thevgergroup/flask-log-viewer"
