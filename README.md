@@ -2,7 +2,7 @@
 
 
 ## Real time log view
-![Screen Shot](images/screenshot.png)
+![Screen Shot](https://raw.githubusercontent.com/thevgergroup/flask-log-viewer/main/images/screenshot.png)
 
 Display logs in real time through a browser with flask.
 
