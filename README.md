@@ -2,7 +2,7 @@
 
 
 ## Real time log view
-![Screen Shot](images/screeshot.png)
+![Screen Shot](images/screenshot.png)
 
 Display logs in real time through a browser with flask.
 
