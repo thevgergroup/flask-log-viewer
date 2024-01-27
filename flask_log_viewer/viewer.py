@@ -9,7 +9,7 @@ import pygtail
 log_blueprint = Blueprint('flask_log_viewer', __name__, template_folder='templates', static_folder='static')
 _base_path = None
 _allowed_directories = None
-
+_style_sheet = None
 
 
 
@@ -53,7 +53,7 @@ def get(log_filename):
 @log_blueprint.route('/view/')
 @log_blueprint.route('/view/<string:log_filename>')
 def viewer(log_filename='random.log'):
-    return render_template('viewer.html', log_file=log_filename)
+    return render_template('viewer.html', log_file=log_filename, style_sheet=_style_sheet)
 
 
 

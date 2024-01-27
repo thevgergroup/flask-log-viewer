@@ -22,8 +22,12 @@
         }
     </style>
 
+    {% if style_shee != None %}
+        <link rel="stylesheet" href="{{style_sheet}}">
+    {% endif %}
+
 </head>
-<body>
+<body class="log-viewer-body">
 
     
 
@@ -31,7 +35,7 @@
         <h3 class="align-center">Log Viewer - {{log_file}}</h3>
         <div class="row justify-content-center">
             <div class="col-auto mt-3 mb-3" hx-ext="sse" sse-connect="{{url_for('flask_log_viewer.get', log_filename=log_file)}}" hx-swap="beforeend">
-                <div class="scrollable-div border p-3" hx-on::after-settle="this.scrollTo(0, this.scrollHeight);">
+                <div class="scrollable-div border p-3 log-viewer-screen" hx-on::after-settle="this.scrollTo(0, this.scrollHeight);">
 <pre id="lv" sse-swap="message" >  
 </pre>
                 </div>
