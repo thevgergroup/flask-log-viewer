@@ -57,7 +57,7 @@
                 //console.log("htmx:beforeSettle", evt.detail.elt);
                 
                 html = evt.detail.elt.innerHTML;
-                html = convertAnsiToHtml(html);
+                html = ansiToHtml(html);
                 html = "<p>" + html + "</p>";
                 
                 evt.detail.elt.innerHTML = html;

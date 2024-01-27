@@ -1,31 +1,39 @@
-function convertAnsiToHtml(ansiText) {
-            
-    var htmlText = ansiText
-        // Handle Reset
-        .replace(/\033\[0m/g, '</span>')
-        // Handle Bold
-        .replace(/\033\[1m/g, '<span style="font-weight: bold;">')
-        // Handle Underline
-        .replace(/\033\[4m/g, '<span style="text-decoration: underline;">')
-        // Handle Colors
-        .replace(/\033\[(3[0-7])m/g, (match, p1) => {
-            const color = ansiColorToHtmlRgb(p1);
-            return `<span style="color: ${color};">`;
-        });
-    htmlText += '</span>';
-    return htmlText;
-}
-
-function ansiColorToHtmlRgb(ansiCode) {
-    const colors = {
-        '30': 'rgb(0,0,0)',       // Black
-        '31': 'rgb(255,0,0)',     // Red
-        '32': 'rgb(0,255,0)',     // Green
-        '33': 'rgb(255,255,0)',   // Yellow
-        '34': 'rgb(0,0,255)',     // Blue
-        '35': 'rgb(255,0,255)',   // Magenta
-        '36': 'rgb(0,255,255)',   // Cyan
-        '37': 'rgb(255,255,255)'  // White
+function ansiToHtml(text) {
+    // ANSI color and style codes to HTML
+    const ansiToHtmlStyles = {
+        '0': '',
+        '1': 'font-weight:bold;',
+        '3': 'font-style:italic;',
+        '4': 'text-decoration:underline;',
+        '30': 'color:black;',
+        '31': 'color:red;',
+        '32': 'color:green;',
+        '33': 'color:yellow;',
+        '34': 'color:blue;',
+        '35': 'color:magenta;',
+        '36': 'color:cyan;',
+        '37': 'color:white;',
+        '40': 'background-color:black;',
+        '41': 'background-color:red;',
+        '42': 'background-color:green;',
+        '43': 'background-color:yellow;',
+        '44': 'background-color:blue;',
+        '45': 'background-color:magenta;',
+        '46': 'background-color:cyan;',
+        '47': 'background-color:white;'
     };
-    return colors[ansiCode] || 'inherit';
+
+    let openSpans = 0;
+
+    const convertedText = text.replace(/\u001b\[(\d+)(;\d+)*m/g, (match, ...codes) => {
+        const styles = codes.slice(0, -2).map(code => ansiToHtmlStyles[code]).filter(Boolean).join('');
+        openSpans += 1;
+        return `<span style="${styles}">`;
+    }).replace(/\u001b\[0m/g, () => {
+        openSpans -= 1;
+        return '</span>';
+    });
+
+    // Close any unclosed spans
+    return convertedText + '</span>'.repeat(openSpans);
 }
